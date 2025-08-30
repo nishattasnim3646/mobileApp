@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsturlabiAxiom - Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <h1>AsturlabiAxiom</h1>
+        
+        <!-- History Popup -->
+        <div class="history-popup" id="history-popup">
+            <div class="history-content">
+                <h3>Calculation History</h3>
+                <div class="history-list" id="history-list"></div>
+                <button class="close-history" id="close-history">Close</button>
+            </div>
+        </div>
+        
+        <!-- Root Input Popup -->
+        <div class="input-popup" id="root-popup">
+            <div class="input-content">
+                <h3>Nth Root Calculation</h3>
+                <div class="input-group">
+                    <label for="root-degree">Root Degree (n):</label>
+                    <input type="number" id="root-degree" class="number-input" placeholder="e.g., 2 for square root">
+                </div>
+                <div class="input-group">
+                    <label for="root-number">Number:</label>
+                    <input type="number" id="root-number" class="number-input" placeholder="Number to find root of">
+                </div>
+                <div class="popup-buttons">
+                    <button class="popup-btn confirm" id="confirm-root">Calculate</button>
+                    <button class="popup-btn cancel" id="cancel-root">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Log Input Popup -->
+        <div class="input-popup" id="log-popup">
+            <div class="input-content">
+                <h3>Logarithm Calculation</h3>
+                <div class="input-group">
+                    <label for="log-base">Log Base:</label>
+                    <input type="number" id="log-base" class="number-input" placeholder="Base (e.g., 10)">
+                </div>
+                <div class="input-group">
+                    <label for="log-number">Number:</label>
+                    <input type="number" id="log-number" class="number-input" placeholder="Number to find log of">
+                </div>
+                <div class="popup-buttons">
+                    <button class="popup-btn confirm" id="confirm-log">Calculate</button>
+                    <button class="popup-btn cancel" id="cancel-log">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Trig Input Popup -->
+        <div class="input-popup" id="trig-popup">
+            <div class="input-content">
+                <h3 id="trig-title">Trigonometric Function</h3>
+                <div class="input-group">
+                    <label for="trig-value">Value (in degrees):</label>
+                    <input type="number" id="trig-value" class="number-input" placeholder="e.g., 60">
+                </div>
+                <div class="popup-buttons">
+                    <button class="popup-btn confirm" id="confirm-trig">Calculate</button>
+                    <button class="popup-btn cancel" id="cancel-trig">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mode-toggle">
+            <button class="mode-btn active" id="calc-mode">Calculator</button>
+            <button class="mode-btn" id="date-mode">Date Calculator</button>
+        </div>
+        
+        <div class="display">
+            <div class="mini-history" id="mini-history"></div>
+            <div class="input" id="input">0</div>
+            <div class="result" id="result"></div>
+        </div>
+        
+        <div class="keypad" id="calc-keypad">
+            <!-- Row 1 -->
+            <button class="function" data-action="function" data-value="sin">sin</button>
+            <button class="function" data-action="function" data-value="cos">cos</button>
+            <button class="function" data-action="function" data-value="tan">tan</button>
+            <button class="function" data-action="function" data-value="log">log</button>
+            <button class="utility" data-action="clear">Clear</button>
+            
+            <!-- Row 2 -->
+            <button class="function" data-action="append" data-value="(">(</button>
+            <button class="function" data-action="append" data-value=")">)</button>
+            <button class="function" data-action="function" data-value="x^y">x^y</button>
+            <button class="function" data-action="function" data-value="√">√</button>
+            <button class="operator" data-action="append" data-value="%">%</button>
+            
+            <!-- Row 3 -->
+            <button class="number" data-action="append" data-value="7">7</button>
+            <button class="number" data-action="append" data-value="8">8</button>
+            <button class="number" data-action="append" data-value="9">9</button>
+            <button class="operator" data-action="append" data-value="/">/</button>
+            <button class="special" data-action="showHistory">HIST</button>
+            
+            <!-- Row 4 -->
+            <button class="number" data-action="append" data-value="4">4</button>
+            <button class="number" data-action="append" data-value="5">5</button>
+            <button class="number" data-action="append" data-value="6">6</button>
+            <button class="operator" data-action="append" data-value="*">×</button>
+            <button class="special" data-action="undo">UNDO</button>
+            
+            <!-- Row 5 -->
+            <button class="number" data-action="append" data-value="1">1</button>
+            <button class="number" data-action="append" data-value="2">2</button>
+            <button class="number" data-action="append" data-value="3">3</button>
+            <button class="operator" data-action="append" data-value="-">-</button>
+            <button class="special" data-action="redo">REDO</button>
+            
+            <!-- Row 6 -->
+            <button class="number" data-action="append" data-value="0">0</button>
+            <button class="number" data-action="append" data-value=".">.</button>
+            <button class="operator" data-action="calculate">=</button>
+            <button class="operator" data-action="append" data-value="+">+</button>
+        </div>
+        
+        <div class="date-calc" id="date-calc">
+            <h3>Date Calculator</h3>
+            <div class="date-input-group">
+                <label for="date1">From Date:</label>
+                <input type="date" id="date1" class="date-input">
+            </div>
+            <div class="date-input-group">
+                <label for="date2">To Date:</label>
+                <input type="date" id="date2" class="date-input">
+            </div>
+            <button id="calculate-date">Calculate Difference</button>
+            <div id="date-result"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

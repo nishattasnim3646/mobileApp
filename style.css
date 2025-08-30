@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1a237e, #4a148c);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #333;
+}
+
+.calculator {
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #311b92;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup Styles */
+.history-popup, .input-popup {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 350px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    z-index: 100;
+    padding: 20px;
+}
+
+.history-content h3, .input-content h3 {
+    margin-bottom: 15px;
+    color: #311b92;
+    text-align: center;
+}
+
+.history-list {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.history-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    font-family: 'Courier New', monospace;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #311b92;
+}
+
+.number-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.popup-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.popup-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.popup-btn.confirm {
+    background: #5e35b1;
+    color: white;
+}
+
+.popup-btn.cancel {
+    background: #e74c3c;
+    color: white;
+}
+
+.popup-btn:hover {
+    opacity: 0.9;
+}
+
+.close-history {
+    width: 100%;
+    padding: 10px;
+    background: #5e35b1;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.close-history:hover {
+    background: #4527a0;
+}
+
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.mode-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #5e35b1;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+    background: #4527a0;
+    box-shadow: 0 0 10px rgba(69, 39, 160, 0.5);
+}
+
+.mode-btn:hover {
+    transform: translateY(-2px);
+}
+
+.display {
+    background: #ede7f6;
+    color: #311b92;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: right;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    word-break: break-all;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.mini-history {
+    font-size: 0.8rem;
+    color: #5e35b1;
+    min-height: 16px;
+    text-align: left;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px dashed #9575cd;
+    font-family: 'Courier New', monospace;
+}
+
+.input {
+    font-size: 1.8rem;
+    font-weight: 500;
+    min-height: 50px;
+    color: #311b92;
+}
+
+.result {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #689f38;
+    min-height: 50px;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+button {
+    padding: 15px 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #f1f1f1;
+    color: #311b92;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: #ddd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.number {
+    background: #fff;
+}
+
+.operator {
+    background: #ff9800;
+    color: white;
+}
+
+.function {
+    background: #5e35b1;
+    color: white;
+}
+
+.special {
+    background: #7e57c2;
+    color: white;
+}
+
+.utility {
+    background: #e74c3c;
+    color: white;
+}
+
+.date-calc {
+    margin-top: 15px;
+    padding: 15px;
+    background: #e8f5e9;
+    border-radius: 10px;
+    display: none;
+}
+
+.date-input-group {
+    margin-bottom: 10px;
+}
+
+.date-input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #311b92;
+}
+
+.date-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+#calculate-date {
+    width: 100%;
+    padding: 12px;
+    background: #689f38;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+#calculate-date:hover {
+    background: #558b2f;
+    transform: translateY(-2px);
+}
+
+#date-result {
+    margin-top: 15px;
+    padding: 10px;
+    background: #d5f5e3;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+    color: #145a32;
+    white-space: pre-line;
+}
+
+@media (max-width: 500px) {
+    .calculator {
+        padding: 15px;
+    }
+    
+    button {
+        padding: 12px 8px;
+        font-size: 1rem;
+    }
+    
+    .input {
+        font-size: 1.5rem;
+    }
+    
+    .result {
+        font-size: 1.8rem;
+    }
+    
+    .keypad {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+    }
+    
+    .history-popup, .input-popup {
+        width: 95%;
+        padding: 15px;
+    }
+}
